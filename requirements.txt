@@ -2,5 +2,5 @@ Flask
 Flask-RESTful
 Flask-JWT
 Flask-SQLAlchemy
-mysql.connector
+MySQL-python
 uwsgi

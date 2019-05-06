@@ -1,4 +1,5 @@
 # Python libraries
+import os
 from flask import Flask
 from flask_restful import Api
 from flask_jwt import JWT
@@ -11,8 +12,7 @@ from resources.store import Store, StoreList
 # Initializing the app whit a secret_key for JTW to encode
 # and the information of the database
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = \
-    "mysql+mysqlconnector://root:adminroot@localhost/flask_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get('JAWSDB_URL')
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = 'cayo'
 api = Api(app)
