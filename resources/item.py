@@ -34,8 +34,8 @@ class Item(Resource):
 
     def post(self, name):
         if ItemModel.find_by_name(name):
-            return {"message": "An item with \
-                name '{}' already exists".format(name)}, 400
+            return {"message": "An item with "
+                    "name '{}' already exists".format(name)}, 400
 
         data = self.parser.parse_args()
         # **data | price=data["price"], store_id=data["store_id"]
