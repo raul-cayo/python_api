@@ -26,7 +26,6 @@ class Item(Resource):
     # This decorator requires the HTTP call to have a token on the headers
     @jwt_required()
     def get(self, name):
-        # I could use 'Item' instead of 'self'
         item = ItemModel.find_by_name(name)
 
         if item:
@@ -35,8 +34,8 @@ class Item(Resource):
 
     def post(self, name):
         if ItemModel.find_by_name(name):
-            return {"message": "An item with' \
-                'name '{}' already exists".format(name)}, 400
+            return {"message": "An item with \
+                name '{}' already exists".format(name)}, 400
 
         data = self.parser.parse_args()
         # **data | price=data["price"], store_id=data["store_id"]
