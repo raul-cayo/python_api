@@ -5,7 +5,7 @@ from flask_restful import Api
 from flask_jwt import JWT
 # Own libraries
 from security import authenticate, identity
-from resources.user import UserRegister
+from resources.user import UserRegister, User
 from resources.item import Item, ItemList
 from resources.store import Store, StoreList
 
@@ -27,6 +27,7 @@ api.add_resource(StoreList, "/stores")
 api.add_resource(Item, "/item/<string:name>")
 api.add_resource(ItemList, "/items")
 api.add_resource(UserRegister, "/register")
+api.add_resource(User, "/user/<int:user_id>")
 
 # Run the API with displaying errors on HTML for debugging
 if __name__ == '__main__':
