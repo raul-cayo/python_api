@@ -20,6 +20,16 @@ api = Api(app)
 # adds '/auth' endpoint to return a token when login in
 jwt = JWTManager(app)
 
+
+@jwt.user_claims_loader
+# identity is taken from create_access_token
+def add_claims_to_jwt(identity):
+    # This should read from a database not hardcoding
+    if identity == 4:
+        return {"is_admin": True}
+    return {"is_admin": False}
+
+
 # Adding the RESOURCES to the API
 api.add_resource(Store, "/store/<string:name>")
 api.add_resource(StoreList, "/stores")
