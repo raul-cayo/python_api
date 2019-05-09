@@ -1,6 +1,6 @@
 # Python libraries
 import os
-from flask import Flask
+from flask import Flask, jsonify
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 # Own libraries
@@ -28,6 +28,47 @@ def add_claims_to_jwt(identity):
     if identity == 4:
         return {"is_admin": True}
     return {"is_admin": False}
+
+
+# Cuztomazing callbacks and responses
+@jwt.expired_token_loader
+def expired_token_callback():
+    return jsonify({
+        "description": "The token has expired",
+        "error": "xpired_token"
+    }), 401
+
+
+@jwt.invalid_token_loader
+def invalid_token_callback():
+    return jsonify({
+        "description": "Signature verification failed",
+        "error": "invalid_token"
+    }), 401
+
+
+@jwt.unauthorized_loader
+def unauthorized_callback():
+    return jsonify({
+        "description": "Mising access token",
+        "error": "unauthorized"
+    }), 401
+
+
+@jwt.needs_fresh_token_loader
+def needs_fresh_token_callback():
+    return jsonify({
+        "description": "The token is not fresh",
+        "error": "needs_fresh_token"
+    }), 401
+
+
+@jwt.revoked_token_loader
+def revoked_token_callback():
+    return jsonify({
+        "description": "The token has been revoked",
+        "error": "revoked_token"
+    }), 401
 
 
 # Adding the RESOURCES to the API
